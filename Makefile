@@ -1,2 +1,2 @@
 run:
-	go run task3ConcurrencySquares2.go
+	go run task4Workers.go
