@@ -36,15 +36,11 @@ func main() {
 	data := new(MyMap)
 	data.data = make(map[string]string)
 
-	go func() {
-		data.Write("1", "1")
-		data.Write("2", "1")
-		data.Write("3", "1")
-		data.Write("4", "1")
-		data.Write("5", "1")
-		data.Write("6", "1")
-		data.Write("7", "1")
-	}()
+	for i := 0; i < rand.Intn(100); i++ {
+		go func() {
+			data.Write(strconv.Itoa(i), strconv.Itoa(rand.Int()))
+		}()
+	}
 
 	time.Sleep(time.Second)
 
@@ -56,45 +52,63 @@ func main() {
 		fmt.Println(k, val)
 	}
 
-	// 2:
-	fmt.Println()
-	m := make(map[string]string)
-	var wg sync.WaitGroup
+	time.Sleep(time.Second * 3)
 
-	for i := 0; i < rand.Intn(10); i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			WriteToMap(m, strconv.Itoa(i), strconv.Itoa(rand.Int()))
-		}()
-	}
+	// second solution
+	lock := sync.RWMutex{}
 
-	wg.Wait()
+	b := make(map[string]int)
+	b["0"] = 0
 
-	for k := range m {
-		val, ok := m[k]
-		if !ok {
-			fmt.Println("nothing here")
-		}
-		fmt.Println(k, val)
-	}
-}
+	go func(i int) {
+		lock.RLock()
 
-func ReadFromMap(m map[string]string, key string) (string, bool) {
-	var mut sync.RWMutex
-	// to prevent race condition
-	mut.RLock()
-	defer mut.RUnlock()
+		fmt.Println("reading in goroutine", i)
+		fmt.Printf("RLock: from goroutine %d: b = %d\n", i, b["0"])
+		time.Sleep(time.Second * 3)
 
-	val, found := m[key]
-	return val, found
-}
+		fmt.Printf("RLock: from goroutine %d: lock released\n", i)
+		lock.RUnlock()
+	}(1)
 
-func WriteToMap(m map[string]string, key, value string) {
-	var mut sync.RWMutex
-	// to prevent race condition
-	mut.Lock()
-	defer mut.Unlock()
+	go func(i int) {
+		lock.Lock()
 
-	m[key] = value
+		b["2"] = i
+		fmt.Println("writing in goroutine", i)
+		fmt.Printf("Lock: from goroutine %d: b = %d\n", i, b["2"])
+		time.Sleep(time.Second * 3)
+
+		fmt.Printf("Lock: from goroutine %d: lock released\n", i)
+		lock.Unlock()
+	}(2)
+
+	<-time.After(time.Second * 8)
+
+	fmt.Println("*************************************")
+
+	go func(i int) {
+		lock.Lock()
+
+		b["3"] = i
+		fmt.Println("writing in goroutine", i)
+		fmt.Printf("Lock: from goroutine %d: b = %d\n", i, b["3"])
+		time.Sleep(time.Second * 3)
+
+		fmt.Printf("Lock: from goroutine %d: lock released\n", i)
+		lock.Unlock()
+	}(3)
+
+	go func(i int) {
+		lock.RLock()
+
+		fmt.Println("reading in goroutine", i)
+		fmt.Printf("RLock: from goroutine %d: b = %d\n", i, b["3"])
+		time.Sleep(time.Second * 3)
+
+		fmt.Printf("RLock: from goroutine %d: lock released\n", i)
+		lock.RUnlock()
+	}(4)
+
+	<-time.After(time.Second * 8)
 }
