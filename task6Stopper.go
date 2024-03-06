@@ -19,14 +19,14 @@ type Stopper struct {
 }
 
 func (s *Stopper) IsStopped() bool {
-	s.Lock()
-	defer s.Unlock()
+	s.RLock()
+	defer s.RUnlock()
 	return s.isStopped
 }
 
 func (s *Stopper) Stop() {
-	s.RLock()
-	defer s.RUnlock()
+	s.Lock()
+	defer s.Unlock()
 	s.isStopped = true
 }
 

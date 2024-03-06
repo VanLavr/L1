@@ -4,4 +4,4 @@ run:
 	@git push
 
 task:
-	@go run task6Stopper.go
+	@go run task7Map.go
