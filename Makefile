@@ -4,4 +4,4 @@ run:
 	@git push
 
 task:
-	@go run task7Map.go
+	@go run task8Bits.go
