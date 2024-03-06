@@ -13,6 +13,8 @@ import (
 	"time"
 )
 
+// contexts are chosen to shut the workers down because if do it via channel => one goroutine will read a closing message from channel and it will disappear
+
 func main() {
 	// getting the number of workers from provided argument
 	sWorkersNumber := os.Args[1]
