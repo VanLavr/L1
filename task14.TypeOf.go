@@ -9,22 +9,34 @@ func main() {
 	var (
 		a chan int
 		b string
-		c int64
-		d uint64
-		e uintptr
-		f any
-		g []rune
+		c int
+		d bool
 	)
 
 	inspectType(a)
 	inspectType(b)
 	inspectType(c)
 	inspectType(d)
-	inspectType(e)
-	inspectType(f)
-	inspectType(g)
+
+	inspectType2(a)
+	inspectType2(b)
+	inspectType2(c)
+	inspectType2(d)
 }
 
 func inspectType(i any) {
 	fmt.Println(reflect.TypeOf(i))
+}
+
+func inspectType2(i any) {
+	switch i.(type) {
+	case chan int:
+		fmt.Println("chan int")
+	case string:
+		fmt.Println("string")
+	case int:
+		fmt.Println("int")
+	case bool:
+		fmt.Println("bool")
+	}
 }
