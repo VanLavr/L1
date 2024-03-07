@@ -4,4 +4,4 @@ run:
 	@git push
 
 task:
-	@go run task8Bits.go
+	@go run task13SwitchTwoNums.go
