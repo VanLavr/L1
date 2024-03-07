@@ -4,4 +4,4 @@ run:
 	@git push
 
 task:
-	@go run task13SwitchTwoNums.go
+	@go run task10GroupTemper.go

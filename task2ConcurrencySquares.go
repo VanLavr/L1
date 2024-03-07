@@ -46,7 +46,7 @@ func main() {
 	data := make(chan int)
 	defer close(data)
 	done := make(chan struct{})
-	defer close(done)
+	// defer close(done)
 	go ChanSquare(data, done)
 	for _, val := range arr {
 		data <- val
