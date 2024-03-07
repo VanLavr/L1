@@ -11,5 +11,7 @@ func main() {
 	a += b
 	b = a - b
 
+	// or: a, b = b, a
+
 	fmt.Println(a, b)
 }
