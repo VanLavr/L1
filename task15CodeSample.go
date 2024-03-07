@@ -10,7 +10,7 @@ var justString string
 func someFunc() {
 	v := createHugeString(1 << 10)
 	// justString = v[:100]
-	justString = string(CopyBytes([]byte(v), 100))
+	justString = string(CopyRunes([]rune(v), 100))
 }
 
 func main() {
@@ -19,7 +19,8 @@ func main() {
 }
 
 func createHugeString(n int) string {
-	const letters = "qwertyuiopasdfghjklzxcvbnm"
+	// const letters = "qwertyuiopasdfghjklzxcvbnm"
+	const letters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 	runes := []rune(letters)
 	buffer := make([]rune, n)
 	for b := range buffer {
@@ -29,8 +30,8 @@ func createHugeString(n int) string {
 	return string(buffer)
 }
 
-func CopyBytes(source []byte, n int) []byte {
-	result := make([]byte, n)
+func CopyRunes(source []rune, n int) []rune {
+	result := make([]rune, n)
 	for i := 0; i < n; i++ {
 		result[i] = source[i]
 	}
