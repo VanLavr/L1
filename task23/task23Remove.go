@@ -24,7 +24,7 @@ func main() {
 
 	// third solution:
 	c := []int{1, 2, 3, 4, 5, 6}
-	fmt.Println(c, "\nenter an element to delete:")
+	fmt.Println(c, "\nenter an !element! to delete:")
 	var j int
 	fmt.Scanf("%d", &j)
 	slices.DeleteFunc(c, func(elem int) bool { // it will also leave the slice with the same lenght so 0 at the end appears
