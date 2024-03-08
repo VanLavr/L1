@@ -14,6 +14,7 @@ import (
 )
 
 // contexts are chosen to shut the workers down because if do it via channel => one goroutine will read a closing message from channel and it will disappear
+// so you have to have as much channels as much goroutines you have
 
 func main() {
 	// getting the number of workers from provided argument
