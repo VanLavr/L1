@@ -65,7 +65,7 @@ func summator(data <-chan int, done <-chan struct{}) int {
 		select {
 		case val, ok := <-data:
 			if !ok {
-				fmt.Errorf("can not read from channel")
+				fmt.Println("can not read from channel")
 				return 0
 			}
 			sum += val
