@@ -22,8 +22,8 @@ func main() {
 	p1 := New(-2, 1)
 	p2 := New(2, -2)
 
-	p3 := New(-1, 3.9)
-	p4 := New(0.2, 1.1)
+	p3 := New(-1, 0.13)
+	p4 := New(0.2, -0.37)
 
 	fmt.Println(p1.FindDistance(*p2), p4.FindDistance(*p3))
 }
