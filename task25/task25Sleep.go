@@ -7,7 +7,7 @@ import (
 )
 
 func Sleep(duration time.Duration) {
-	<-time.NewTimer(duration * time.Second).C // NewTimer creates a new Timer that will send the current time on its channel after at least duration d.
+	<-time.NewTimer(duration).C // NewTimer creates a new Timer that will send the current time on its channel after at least duration d.
 } // channel is C
 
 func AnotherSleep(duration time.Duration) {
@@ -17,7 +17,7 @@ func AnotherSleep(duration time.Duration) {
 
 func main() {
 	fmt.Println("hello world")
-	Sleep(2)
+	Sleep(time.Second * 2)
 	fmt.Println("hello world")
 	AnotherSleep(time.Second * 3)
 	fmt.Println("hello world")
