@@ -14,8 +14,8 @@ import (
 // 4 mutex (very similar to atomic)
 
 type Stopper struct {
-	sync.RWMutex
-	isStopped bool
+	sync.RWMutex // RWMutex was choosen because this shared resource read more frequently, than written
+	isStopped    bool
 }
 
 func (s *Stopper) IsStopped() bool {
