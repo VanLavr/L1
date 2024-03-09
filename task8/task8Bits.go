@@ -60,10 +60,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if isZero == 0 {
+	if isZero == 0 && n >= 0 {
 		n = n &^ (1 << (bitPos - 1))
-	} else {
+	} else if isZero == 1 && n >= 0 {
 		n = n | (1 << (bitPos - 1))
+	} else if isZero == 0 && n < 0 {
+		n = n | (1 << (bitPos - 1))
+	} else if isZero == 1 && n < 0 {
+		n = n &^ (1 << (bitPos - 1))
 	}
 	fmt.Printf("now your number is: %b (%d)\n", n, n)
 }
