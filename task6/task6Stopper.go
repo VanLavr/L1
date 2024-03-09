@@ -48,7 +48,7 @@ func main() {
 	}(done)
 
 	time.Sleep(time.Second * 2)
-	done <- struct{}{}
+	done <- struct{}{} // or close(done)
 
 	// 2:
 	ctx, close := context.WithCancel(context.Background())
