@@ -19,7 +19,7 @@ func main() {
 	fmt.Println(b, "\nenter an index of element to delete:")
 	var k int
 	fmt.Scanf("%d", &k)
-	slices.Delete(b, k, k+1) // it will leave the slice with the same lenght so 0 at the end appears
+	b = slices.Delete(b, k, k+1) // it will leave the slice with the same lenght so 0 at the end appears
 	fmt.Println(b, "\n")
 
 	// third solution:
@@ -27,11 +27,8 @@ func main() {
 	fmt.Println(c, "\nenter an !element! to delete:")
 	var j int
 	fmt.Scanf("%d", &j)
-	slices.DeleteFunc(c, func(elem int) bool { // it will also leave the slice with the same lenght so 0 at the end appears
-		if elem == j {
-			return true
-		}
-		return false
+	c = slices.DeleteFunc(c, func(elem int) bool { // it will also leave the slice with the same lenght so 0 at the end appears
+		return elem == j
 	})
 	fmt.Println(c)
 }
