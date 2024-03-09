@@ -36,13 +36,16 @@ func main() {
 	data := new(MyMap)
 	data.data = make(map[string]string)
 
+	var wg sync.WaitGroup
 	for i := 0; i < rand.Intn(100); i++ {
-		go func() {
+		wg.Add(1)
+		go func(wg *sync.WaitGroup) {
+			defer wg.Done()
 			data.Write(strconv.Itoa(i), strconv.Itoa(rand.Int()))
-		}()
+		}(&wg)
 	}
 
-	time.Sleep(time.Second)
+	wg.Wait()
 
 	for k := range data.data {
 		val, ok := data.Read(k)
