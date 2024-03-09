@@ -11,7 +11,7 @@ func main() {
 	fmt.Println("aaa" + "bbb") // creates a new string every time its called
 
 	// 2:
-	var b strings.Builder // do not create a new string
+	var b strings.Builder // do not create a new string // It minimizes memory copying. (docs)
 	b.WriteString("sss")
 	b.WriteString("ddd")
 	fmt.Println(b.String())
