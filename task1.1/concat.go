@@ -74,7 +74,7 @@ goarch: amd64
 pkg: github.com/VanLavr/L1/task1.1
 cpu: AMD Ryzen 7 4800H with Radeon Graphics
 BenchmarkPlus-16        55658852               22.44 ns/op
-BenchmarkBuilder-16      7568839               161.6 ns/op
+BenchmarkBuilder-16      7568839               161.6 ns/op most efficient?
 BenchmarkJoin-16         9731810               125.3 ns/op
 BenchmarkBuffer-16       6570566               186.0 ns/op
 BenchmarkSprint-16       2814986               412.0 ns/op
